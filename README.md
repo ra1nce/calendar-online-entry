@@ -27,4 +27,7 @@ To start the application:
 ```bash  
 npm run start  
 ```   
-To generate a static web application:    ```bash    npm run generate    ```
+To generate a static web application:    
+```bash
+npm run generate    
+```

@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
+* {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+
+.center {
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+body {
+    background: #a1a1a1;
+}
+
+.calendar {
+    background: #fff;
+
+    border-radius: 15px;
+    padding: 15px;
+
+    display: inline-block;
+}
+
+
+.month {
+    display: flex;
+
+    justify-content: space-between;
+}
+
+.month-arrow-left, .month-arrow-right {
+    cursor: pointer;
+}
+
+.month-arrow-left {
+    padding-right: 60px;
+}
+
+.month-arrow-right {
+    padding-left: 60px;
+}
+
+.month-name {
+    font-size: 16px;
+    font-weight: 700;
+
+    /* margin: 0 80px; */
+}
+
+.weekdays {
+    display: flex;
+
+    margin: 20px 0;
+}
+
+.weekday {
+    width: 41px;
+
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 120%;
+
+    color: #7B827E;
+
+    text-align: center;
+}
+
+.week {
+    display: flex;
+}
+
+.weekday-num {
+    width: 41px;
+    /* height: 32px; */
+
+    padding: 8px 0;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 120%;
+
+    text-align: center;
+    vertical-align: bottom;
+
+    cursor: pointer;
+
+    transition: all 0.3s ease;
+
+}
+
+.weekday-num:hover {
+    background-color: #cbcbcb;
+}
+
+.other-month-weekday {
+    font-weight: 400;
+
+    color: #6C7470;
+}

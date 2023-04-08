@@ -15,7 +15,7 @@ const transport = nodemailer.createTransport(directTransport({
 
 // Создание таблицы в базе данных
 db.serialize(() => {
-    db.run("CREATE TABLE IF NOT EXISTS records (id INTEGER, first_name TEXT, last_name TEXT, phone TEXT, email TEXT, recording_date TEXT, date_added TEXT)");
+    db.run("CREATE TABLE IF NOT EXISTS records (id INTEGER PRIMARY KEY AUTOINCREMENT, first_name TEXT, last_name TEXT, phone TEXT, email TEXT, recording_date TEXT, date_added TEXT)");
 });
 
 // Добавляем middleware который парсит входящие запросы с типом данных JSON.

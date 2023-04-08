@@ -64,6 +64,8 @@
     * {
         font-family: 'Inter', sans-serif;
         font-size: 18px;
+        font-weight: 700;
+        color: #fff;
         margin: 0;
         padding: 0;
     }

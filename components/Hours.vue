@@ -77,7 +77,7 @@ function generateTimeList(startHour, endHour, stepMinutes) {
 }
 
 function getRecords() {
-    let result = fetch('http://45.15.159.129:3000/api/records')
+    let result = fetch('https://dev.raince.ru/api/records')
         .then(response => response.json())
         .then(data => {
             let records = [];

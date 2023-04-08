@@ -39,7 +39,7 @@ export default {
             const email = document.getElementById("form_email").value;
             const recording_date = document.getElementById("form_recording_date").value;
 
-            fetch('http://45.15.159.129:3000/api/make_appointment', {
+            fetch('https://dev.raince.ru/api/make_appointment', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

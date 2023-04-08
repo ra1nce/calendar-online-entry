@@ -1,59 +1,34 @@
 <template>
     <div class="center">
         <div class="items">
-            <div class="item">
+
+            <div class="item" v-for="record in records" :key="record">
                 <div class="row">
                     <div class="column">
                         <p class="item-id">
-                            1
+                            {{ record.id }}
                         </p>
                     </div>
                     <div class="column">
                         <div class="row">
-                            <span class="desc-item-row">Имя:</span><span class="item-first-name">John</span>
+                            <span class="desc-item-row">Имя:</span><span class="item-first-name">{{ record.first_name }}</span>
                         </div>
                         <div class="row">
-                            <span class="desc-item-row">Фамилия:</span><span class="item-last-name">Domang</span>
+                            <span class="desc-item-row">Фамилия:</span><span class="item-last-name">{{ record.last_name }}</span>
                         </div>
                         <div class="row">
-                            <span class="desc-item-row">Номер телефона:</span><span class="item-phone">+7 977 999 99 99</span>
+                            <span class="desc-item-row">Номер телефона:</span><span class="item-phone">{{ record.phone }}</span>
                         </div>
                         <div class="row">
-                            <span class="desc-item-row">Email:</span><span class="item-email">testmail@mail.ru</span>
+                            <span class="desc-item-row">Email:</span><span class="item-email">{{ record.email }}</span>
                         </div>
                         <div class="row">
-                            <span class="desc-item-row">Дата записи:</span><span class="item-recording-date">09.04.2023 14:30</span>
+                            <span class="desc-item-row">Дата записи:</span><span class="item-recording-date">{{ record.recording_date }}</span>
                         </div>
                     </div>
                 </div>
             </div>
-    
-            <div class="item">
-                <div class="row">
-                    <div class="column">
-                        <p class="item-id">
-                            2
-                        </p>
-                    </div>
-                    <div class="column">
-                        <div class="row">
-                            <span class="desc-item-row">Имя:</span><span class="item-first-name">John</span>
-                        </div>
-                        <div class="row">
-                            <span class="desc-item-row">Фамилия:</span><span class="item-last-name">Domang</span>
-                        </div>
-                        <div class="row">
-                            <span class="desc-item-row">Номер телефона:</span><span class="item-phone">+7 977 999 99 99</span>
-                        </div>
-                        <div class="row">
-                            <span class="desc-item-row">Email:</span><span class="item-email">testmail@mail.ru</span>
-                        </div>
-                        <div class="row">
-                            <span class="desc-item-row">Дата записи:</span><span class="item-recording-date">09.04.2023 14:30</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
         </div>
     </div>
 </template>
@@ -109,9 +84,29 @@
 </style>
 
 <script>
+import { ref, onMounted } from 'vue';
+
 export default {
     setup() {
-        
+        const records = ref({});
+
+        onMounted(async () => {
+            records.value = await getRecords();
+        });
+
+        return {
+            records,
+        }
     },
+}
+
+function getRecords() {
+    let result = fetch('https://dev.raince.ru/api/records')
+        .then(response => response.json())
+        .then(data => {
+            return data;
+        });
+
+    return result;
 }
 </script>

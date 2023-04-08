@@ -1,15 +1,16 @@
 const express = require('express');
 const sqlite3 = require('sqlite3').verbose();
+const nodemailer = require('nodemailer');
+const directTransport = require('nodemailer-direct-transport');
 
 const app = express();
 const db = new sqlite3.Database('calendar.db');
+const fromHost = 'raince.ru';
+const from = "robot@" + fromHost;
 
-
-const transporter = nodemailer.createTransport({
-    sendmail: true,
-    newline: 'unix',
-    path: '/usr/bin/mail'
-});
+const transport = nodemailer.createTransport(directTransport({
+    name: fromHost
+}));
 
 
 // Создание таблицы в базе данных
@@ -32,6 +33,16 @@ app.get('/records', async (req, res) => {
 
 app.post('/make_appointment', async (req, res) => {
     const { first_name, last_name, phone, email, recording_date } = req.body;
+
+    db.all('SELECT * FROM records', (err, rows) => {
+        if (err) {
+            return console.error(err.message);
+        }
+        if (rows.includes(recording_date)) {
+            return false
+        }
+    });
+
     const current_date = new Date().toISOString();
 
     console.log(first_name, last_name, phone, email, recording_date)
@@ -43,20 +54,17 @@ app.post('/make_appointment', async (req, res) => {
     });
 
     const mailOptions = {
-        from: 'robot',
-        to: 'fds.fdsfdsfsd@bk.ru',
-        subject: 'Appointment',
-        text: 'Testing email from Nuxt'
+        from, email,
+        subject: 'Запись на прием',
+        html: `${first_name} ${last_name}, вы записались на прием в <b>${recording_date}</b>!`
     };
 
-    transporter.sendMail(mailOptions, function (error, info) {
-        if (error) {
-            console.log(error);
-            res.send('error');
-        } else {
-            console.log('Email sent: ' + info.response);
-            res.send('sent');
-        }
+    transport.sendMail(mailOptions, function (error, info) {
+            if (error) {
+                console.log(error);
+            } else {
+                console.log('Email sent: ' + info.response);
+            }
     });
 
     res.send(true);

@@ -18,6 +18,8 @@
 body {
     background: #212121;
     background-image: url("assets/img/bg.png");
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .calendar {

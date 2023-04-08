@@ -5,7 +5,7 @@
         </div>
 
         <div class="hours">
-            <div class="hour" v-for="time in timeList" :key="time" @click="displayMakeAppointment(time)">
+            <div class="hour" v-for="time in timeList" :key="time" @click="displayMakeAppointment(records.includes(`${date} ${time}`), time)" :class="{ 'day-off-hour': records.includes(`${date} ${time}`) }">
                 {{ time }}
             </div>
         </div>
@@ -13,11 +13,20 @@
 </template>
 
 <script>
+import { ref, onMounted } from 'vue';
+
 export default {
     name: "Hours",
     setup() {
+        const records = ref([]);
+
+        onMounted(async () => {
+            records.value = await getRecords();
+        });
+
         return {
-            timeList: generateTimeList("7:00", "23:00", "30")
+            timeList: generateTimeList("7:00", "23:00", "30"),
+            records,
         }
     },
     props: {
@@ -31,7 +40,11 @@ export default {
         },
     },
     methods: {
-        displayMakeAppointment(hour) {
+        displayMakeAppointment(isClose, hour) {
+            if (isClose) {
+                return;
+            }
+
             this.changeHour(hour);
 
             document.getElementById('make-appointment').style.display = 'flex';
@@ -61,6 +74,20 @@ function generateTimeList(startHour, endHour, stepMinutes) {
     }
 
     return timeList;
+}
+
+function getRecords() {
+    let result = fetch('http://45.15.159.129:3000/api/records')
+        .then(response => response.json())
+        .then(data => {
+            let records = [];
+            for (let i of data) {
+                records.push(i.recording_date)
+            }
+            return records;
+        });
+
+    return result;
 }
 
 </script>

@@ -39,14 +39,17 @@ export default {
             const email = document.getElementById("form_email").value;
             const recording_date = document.getElementById("form_recording_date").value;
 
-            fetch('http://localhost:3000/api/make_appointment', {
+            fetch('http://45.15.159.129:3000/api/make_appointment', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({ first_name, last_name, phone, email, recording_date })
             }).then(res => res.json()) // response type
-                .then(response => console.log('Success:', JSON.stringify(response))) // log the response to console for debugging purposes
+                .then(response => {
+                    console.log('Success:', JSON.stringify(response));
+                    location.reload();
+                }) // log the response to console for debugging purposes
                 .catch(error => console.error('Error:', error)); // log the error to console for debugging purposes
         }
     },

@@ -8,7 +8,7 @@ Calendar is a project created with Nuxt.js version 2.15.8. It uses Vue version 2
 
 Clone the repository and install the dependencies: 
 ```bash 
-git clone https://github.com/ra1nce/calendar-online-entry.git 
+git clone https://github.com/ra1nce/online-appointment-booking.git 
 cd calendar-online-entry 
 npm install 
 ``` 

@@ -23,7 +23,7 @@
 				<div class="hour-block">
 					<Hours @changeHour="changeHour" :date="nums_table.date" :day_name="nums_table.day_name" />
 				</div>
-				
+
 			</div>
 		
 			<MakeAppointment :date="nums_table.date" :hour="nums_table.hour" />
@@ -32,6 +32,7 @@
 </template>
 
 <script>
+import Records from '../components/Records.vue';
 const moment = require('moment');
 
 export default {
@@ -41,7 +42,7 @@ export default {
             nums_table: {
                 date: new Date().toLocaleDateString("ru-RU", { day: "2-digit", month: "2-digit", year: "numeric" }),
                 day_name: new Date().toLocaleDateString("en-EN", { weekday: "long" }),
-				hour: "00:00",
+                hour: "00:00",
             }
         };
     },
@@ -52,9 +53,10 @@ export default {
             this.nums_table.date = date_string;
             this.nums_table.day_name = day_name;
         },
-		changeHour(hour) {
-			this.nums_table.hour = hour;
-		}
+        changeHour(hour) {
+            this.nums_table.hour = hour;
+        }
     },
+    components: { Records }
 }
 </script>

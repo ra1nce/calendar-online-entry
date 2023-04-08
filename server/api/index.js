@@ -54,7 +54,7 @@ app.post('/make_appointment', async (req, res) => {
     });
 
     const mailOptions = {
-        from, email,
+        from, to: email,
         subject: 'Запись на прием',
         html: `${first_name} ${last_name}, вы записались на прием в <b>${recording_date}</b>!`
     };
